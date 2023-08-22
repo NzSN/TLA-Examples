@@ -1,5 +1,5 @@
------------------------------- MODULE Reporter ------------------------------
-VARIABLE reporter
+------------------------------ MODULE ReporterInterface ------------------------------
+VARIABLE reporterInterface
 CONSTANT Reply(_,_,_),
          Request(_,_),
          ID,
@@ -9,7 +9,7 @@ CONSTANT Reply(_,_,_),
 ASSUME \A repOld, repNew:
     Request(repOld, repNew) \in BOOLEAN
 ASSUME \A rep, repOld, repNew:
-    Reply(rep, repOld,repNew) \in BOOLEAN \* Reporter report a report to Receiver
+    Reply(rep, repOld,repNew) \in BOOLEAN (* Reporter report a report to Receiver *)
 -----------------------------------------------------------------------------
 NoReporter == CHOOSE v : v \notin Reporter
 =============================================================================

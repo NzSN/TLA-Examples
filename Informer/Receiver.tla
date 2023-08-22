@@ -1,21 +1,22 @@
 ------------------------------ MODULE Receiver ------------------------------
-EXTENDS Reporter
-VARIABLE reply, \* Report that will send to caller of receiver
-         reporters, \* Collection of Reporters connected with the Receiver
-         selected \* The reporter specified by request
+EXTENDS ReporterInterface
+VARIABLE reply,     (* Report that will send to caller of receiver *)
+         reporters, (* Collection of Reporters connected with the Receiver *)
+         selected   (* The reporter specified by request *)
 
 RInit ==
     /\ reporters \in [ID -> Reporter]
     /\ selected = NoReporter
 
 Req(id) ==
+    /\ selected \in NoReporter
     /\ reporters[id] \in Reporter
     /\ selected = reporters[id]
     /\ Request(selected, selected')
 
 Rep ==
     /\ selected \in Reporter
-    /\ \exists rep \in Report:
+    /\ \E rep \in Report:
         /\ Reply(rep, selected, selected')
         /\ reply = rep
     /\ selected = NoReporter
