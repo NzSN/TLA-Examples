@@ -1,30 +1,23 @@
 ------------------------------ MODULE Receiver ------------------------------
 EXTENDS Reporter
-VARIABLE reply, (* Report that will send to caller of receiver *)
-         reporters, (* Collection of Reporters connected with the Receiver *)
-         selected (* The reporter specified by request *)
+VARIABLE data, (* Report that will send to caller of receiver *)
+         reporters (* Collection of Reporters connected with the Receiver *)
 
 TypeInvariant ==
     /\ reporters \in [ID -> Reporter]
-    /\ selected \in Reporter \union NoReporter
-
-RInit ==
-    /\ selected = NoReporter
 
 Req(id) ==
     /\ reporters[id] \in Reporter
-    /\ selected = reporters[id]
-    /\ Request(selected, selected')
+    /\ Request(reporters[id], reporters[id]')
 
-Rep ==
-    /\ selected \in Reporter
+Rep(id) ==
+    /\ reporters[id] \in Reporter
     /\ \exists rep \in Report:
-        /\ Reply(rep, selected, selected')
-        /\ reply = rep
-    /\ selected = NoReporter
+        /\ Reply(rep, reporters[id], reporters[id]')
+        /\ data = rep
 
-RNext == \E id \in ID: Req(id) /\ Rep
-RSpec == RInit /\ [][RNext]_<<reply,reporters>>
+RNext == \E id \in ID: Req(id) /\ Rep(id)
+RSpec == [][RNext]_<<data>>
 ----------------------------------------
 THEOREM RSpec => []TypeInvariant
 =============================================================================
