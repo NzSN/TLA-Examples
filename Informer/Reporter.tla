@@ -1,12 +1,12 @@
 ------------------------------ MODULE ReporterInterface ------------------------------
 VARIABLE reporterInterface
-CONSTANT Reply(_,_,_),
+CONSTANT DoReport(_,_,_),
          ID,
          Reporter,
          Report
 
-ASSUME \A rep, repOld, repNew:
-    Reply(rep, repOld,repNew) \in BOOLEAN (* Reporter report a report to Receiver *)
+ASSUME \A repOld, repNew:
+    DoReply(repOld,repNew) \in Report (* Reporter report a report to Receiver *)
 -----------------------------------------------------------------------------
 NoReporter == CHOOSE v : v \notin Reporter
 =============================================================================
