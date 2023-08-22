@@ -7,17 +7,13 @@ TypeInvariant ==
     /\ reporters \in [ID -> Reporter]
     /\ data \in Report
 
-Req(id) ==
-    /\ reporters[id] \in Reporter
-    /\ Request(reporters[id], reporters[id]')
-
 Rep(id) ==
     /\ reporters[id] \in Reporter
     /\ \exists rep \in Report:
         /\ Reply(rep, reporters[id], reporters[id]')
         /\ data = rep
 
-RNext == \E id \in ID: Req(id) /\ Rep(id)
+RNext == \E id \in Rep(id)
 RSpec == [][RNext]_<<data>>
 ----------------------------------------
 THEOREM RSpec => []TypeInvariant
