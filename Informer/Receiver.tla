@@ -11,6 +11,11 @@ Retrieve(id) ==
     /\ reporters[id] \in Reporter
     /\ data = DoReport(reporters[id], reporters[id]')
     /\ data \in Report
+    /\ UNCHANGED reporters
+
+RetrieveAll ==
+    /\ data = [i \in 1 .. Len(Reporters) |-> DoReport(reporters[i]) ]
+    /\ UNCHANGED reporters
 
 RNext == \E id \in Retrieve(id)
 RSpec == [][RNext]_<<data>>
