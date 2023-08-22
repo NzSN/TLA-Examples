@@ -5,6 +5,7 @@ VARIABLE data, (* Report that will send to caller of receiver *)
 
 TypeInvariant ==
     /\ reporters \in [ID -> Reporter]
+    /\ data \in Report
 
 Req(id) ==
     /\ reporters[id] \in Reporter
