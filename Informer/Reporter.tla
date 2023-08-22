@@ -5,6 +5,7 @@ CONSTANT DoReport(_,_,_),
          Reporter,
          Report
 
+RPTypeInvariant == Reporter \in [ id: ID ]
 ASSUME \A repOld, repNew:
     DoReply(repOld,repNew) \in Report (* Reporter report a report to Receiver *)
 -----------------------------------------------------------------------------
