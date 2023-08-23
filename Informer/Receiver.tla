@@ -14,7 +14,8 @@ Retrieve(id) ==
     /\ UNCHANGED reporters
 
 RetrieveAll ==
-    /\ data = [id \in ID |-> Retrieve(id)] 
+    /\ data = [id \in ID |-> DoReport(reporters[id], reporters[id]')]
+    /\ data \in Report
     /\ UNCHANGED reporters
 
 RNext == /\ \E id \in ID: Retrieve(id)
