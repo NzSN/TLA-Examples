@@ -12,7 +12,10 @@ Send(d) == /\ chan.rdy = chan.ack
 Rcv == /\ chan.rdy # chan.ack
        /\ chan' = [chan EXCEPT !.ack = 1 - @]
 Next == (\exists d \in Data: Send(d)) \/ Rcv
-Spec == Init /\ [][Next]_chan
+Spec ==
+  /\ Init
+  /\ [][Next]_chan
+  /\ [](ENABLED <<Rcv>>_chan => <><<Rcv>>_chan)
 =============================================================================
 \* Modification History
 \* Last modified Fri Aug 18 15:26:25 CST 2023 by linshizhi

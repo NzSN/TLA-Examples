@@ -12,7 +12,7 @@ Max(seq) ==
 
 AllInputs == PT!SeqOf(IntSet, MaxSeqLen) \ {<<>>}
 
-(*--algorithm amx
+(*--algorithm max
 variables seq \in AllInputs, i = 1; max;
 begin
   max := seq[1];

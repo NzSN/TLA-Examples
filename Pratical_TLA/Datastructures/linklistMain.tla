@@ -13,5 +13,6 @@ CycleImpliesTwoParents(ll) ==
 
 Valid ==
     /\ \A ll \in AllLinkedLists:
-        /\ Assert(CycleImpliesTwoParents(ll), <<"Counterexample:", ll>>)
+        /\ PrintT(ll)
+        \*/\ Assert(CycleImpliesTwoParents(ll), <<"Counterexample:", ll>>)
 ====

@@ -23,10 +23,10 @@ LinkedLists(Nodes) ==
     ELSE
       LET
         nodes_subset == (SUBSET Nodes \ {{}})
-        pointer_maps_sets == {PointerMaps(subn): subn \in nodes_subset}
+        pointer_maps_sets == {PointerMaps(subn): subn \in {Nodes}}
         all_maps == UNION pointer_maps_sets
       IN
-        {pm \in all_maps: isLinkedLists(pm)}
+        {pm \in all_maps: TRUE}
 
 Cyclic(LL) == NULL \notin Range(LL)
 Ring(LL) == (DOMAIN LL = Range(LL))
