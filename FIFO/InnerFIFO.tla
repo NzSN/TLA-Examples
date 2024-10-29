@@ -1,36 +1,39 @@
------------------------------ MODULE InnerFIFO -----------------------------
-EXTENDS Naturals,Sequences
+---------------------------- MODULE InnerFIFO -------------------------------
+EXTENDS Naturals, Sequences
 CONSTANT Message
 VARIABLES in, out, q
-
-InChan == INSTANCE Channel WITH Data <- Message, chan <- in
+InChan  == INSTANCE Channel WITH Data <- Message, chan <- in
 OutChan == INSTANCE Channel WITH Data <- Message, chan <- out
-
+-----------------------------------------------------------------------------
 Init == /\ InChan!Init
         /\ OutChan!Init
-        /\ q = <<>>
-TypeInvariant == /\ InChan!TypeInvariant
-                 /\ OutChan!TypeInvariant
-                 /\ q \in Seq(Message)
-SSend(msg) == /\ InChan!Send(msg)
-              /\ UNCHANGED <<out, q>>
-BufRcv == /\ InChan!Rcv
-          /\ q' = Append(q, in.val)
+        /\ q = << >>
+
+TypeInvariant  ==  /\ InChan!TypeInvariant
+                   /\ OutChan!TypeInvariant
+                   /\ q \in Seq(Message)
+
+SSend(msg)  ==  /\ InChan!Send(msg) \* Send msg on channel `in'.
+                /\ UNCHANGED <<out, q>>
+
+BufRcv == /\ InChan!Rcv              \* Receive message from channel `in'.
+          /\ q' = Append(q, in.val)  \*   and append it to tail of q.
           /\ UNCHANGED out
-BufSend == /\ q # <<>>
-           /\ OutChan!Send(Head(q))
-           /\ q' = Tail(q)
+
+BufSend == /\ q # << >>               \* Enabled only if q is nonempty.
+           /\ OutChan!Send(Head(q))   \* Send Head(q) on channel `out'
+           /\ q' = Tail(q)            \*   and remove it from q.
            /\ UNCHANGED in
-RRcv ==  /\ OutChan!Rcv
-         /\ UNCHANGED <<in, q>>
-Next == /\ (\exists msg \in Message : SSend(msg))
-        /\ BufRcv
-        /\ BufSend
-        /\ RRcv
+
+RRcv == /\ OutChan!Rcv          \* Receive message from channel `out'.
+        /\ UNCHANGED <<in, q>>
+
+Next == \/ \E msg \in Message : SSend(msg)
+        \/ BufRcv
+        \/ BufSend
+        \/ RRcv
+
 Spec == Init /\ [][Next]_<<in, out, q>>
----------------------------------------------------------
+-----------------------------------------------------------------------------
 THEOREM Spec => []TypeInvariant
-=============================================================================
-\* Modification History
-\* Last modified Fri Aug 18 15:28:40 CST 2023 by linshizhi
-\* Created Fri Aug 18 14:55:00 CST 2023 by linshizhi
+=============================================================================
