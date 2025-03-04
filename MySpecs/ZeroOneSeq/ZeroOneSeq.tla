@@ -24,10 +24,10 @@ macro wait_for(val) begin
 end macro;
 
 fair+ process Writer0 \in { "w0_1", "w0_2" }
-begin Writer0:
+begin
+  Writer0:
     while TRUE do
       wait_for(1);
-
       if Len(q) < MAX_Q_SIZE then
         either
           q := Append(q, 0);
@@ -41,10 +41,10 @@ begin Writer0:
 end process;
 
 fair+ process writer1 = "writer1"
-begin Writer1:
+begin
+  Writer1:
     while TRUE do
       wait_for(0);
-
       if Len(q) < MAX_Q_SIZE then
         either
           q := Append(q, 1);
@@ -58,8 +58,8 @@ begin Writer1:
 end process;
 
 end algorithm; *)
-\* BEGIN TRANSLATION (chksum(pcal) = "a4f2b47f" /\ chksum(tla) = "4b13fa74")
-\* Label Writer0 of process Writer0 at line 28 col 5 changed to Writer0_
+\* BEGIN TRANSLATION (chksum(pcal) = "a4f2b47f" /\ chksum(tla) = "fbb36381")
+\* Label Writer0 of process Writer0 at line 29 col 5 changed to Writer0_
 VARIABLE q
 
 (* define statement *)
