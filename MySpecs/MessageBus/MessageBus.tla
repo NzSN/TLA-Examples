@@ -118,5 +118,5 @@ Next == \/ \E t \in Topics: \E client \in Clients: \E id \in MsgID:
         \/ \E client \in Clients: \E t \in Topics:
                 \/ Pull(client, t)
                 \/ Pull_Wait(client)
-Spec == Init /\ [][Next]_<<channel,ctl,msg>>
+Spec == Init /\ [][Next]_<<channel,ctl,msg,r_counter,i_msg_counter>>
 ========================================================
