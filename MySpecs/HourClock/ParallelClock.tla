@@ -17,10 +17,10 @@ Tick_min ==
     /\ min' = min + 1
     /\ tick_from' = 0
     /\ UNCHANGED <<hr>>
-
 HCnext == Tick_min \/ Tick_hr
 HC == HCinit /\ [][HCnext]_<<hr,min,tick_from>> /\ WF_<<hr,min,tick_from>>(Tick_hr) /\ WF_<<hr,min,tick_from>>(Tick_min)
 
 \* Properties
-HourTickValidity == [](tick_from = 1 => min = 60)
+HourTickValidity == tick_from = 1 => min = 60
+EventuallyTickTo12 == <>(hr = 12)
 ============================================================

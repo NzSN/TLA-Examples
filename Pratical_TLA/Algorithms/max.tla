@@ -22,8 +22,8 @@ begin
     end if;
     i := i + 1;
   end while;
-  \* assert Len(seq) > 0;
-  \* assert max = Max(seq);
+  assert Len(seq) > 0;
+  assert max = Max(seq);
 end algorithm; *)
 \* BEGIN TRANSLATION (chksum(pcal) = "18517cd2" /\ chksum(tla) = "23341687")
 CONSTANT defaultInitValue

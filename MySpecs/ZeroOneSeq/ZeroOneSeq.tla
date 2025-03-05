@@ -7,7 +7,7 @@ variables q = <<>>;
 
 define
     Bounded == Len(q) <= MAX_Q_SIZE
-    Interleaved ==
+    Alternative ==
         LET zero_ks == {k \in 1..Len(q): q[k] = 0}
         IN  \A k \in zero_ks: IF k = Len(q)
                                 THEN q[k] = 0
@@ -58,13 +58,13 @@ begin
 end process;
 
 end algorithm; *)
-\* BEGIN TRANSLATION (chksum(pcal) = "a4f2b47f" /\ chksum(tla) = "fbb36381")
+\* BEGIN TRANSLATION (chksum(pcal) = "7774df9" /\ chksum(tla) = "4bf6d73e")
 \* Label Writer0 of process Writer0 at line 29 col 5 changed to Writer0_
 VARIABLE q
 
 (* define statement *)
 Bounded == Len(q) <= MAX_Q_SIZE
-Interleaved ==
+Alternative ==
     LET zero_ks == {k \in 1..Len(q): q[k] = 0}
     IN  \A k \in zero_ks: IF k = Len(q)
                             THEN q[k] = 0
