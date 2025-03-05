@@ -25,7 +25,7 @@ MsgInChannel(clients) ==
     THEN 0
     ELSE LET c == CHOOSE c \in clients: TRUE
          IN  Len(bc_channel[c]) + MsgInChannel(clients \ {c})
-Losslessly == [](in_msg_counter = (rcv_counter + MsgInChannel(Clients)))
+Lossless == [](in_msg_counter = (rcv_counter + MsgInChannel(Clients)))
 
 (* Actions *)
 Init == TypeInvariant
